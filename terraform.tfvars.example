@@ -1,0 +1,49 @@
+project_name = "three-tier"
+environment  = "dev"
+region       = "us-east-1"
+# vpc configration
+vpc_cidr  = "10.10.0.0/16"
+subnet_az = ["us-east-1a", "us-east-1b"]
+# rds configration
+db_username          = "postgres"
+db_name              = "goalsdb"
+db_port              = 5432
+db_allocated_storage = 20
+db_instance_class    = "db.t3.micro"
+db_engine            = "postgres"
+db_engine_version    = "15.17"
+db_multi_az          = true
+# ECR configration
+backend_ecr_repository_arn  = "arn:aws:ecr:us-east-1:<account-id>:repository/<backend-repository-name>"
+frontend_ecr_repository_arn = "arn:aws:ecr:us-east-1:<account-id>:repository/<frontend-repository-name>"
+# external alb configuration
+external_name_prefix                = "ext"
+external_internal                   = false
+external_tg_port                    = 3000
+external_enable_deletion_protection = false
+external_enable_stickiness          = true
+external_health_check_path          = "/health"
+# internal alb configuration
+internal_name_prefix                = "int"
+internal_internal                   = true
+internal_tg_port                    = 8080
+internal_enable_deletion_protection = false
+internal_enable_stickiness          = true
+internal_health_check_path          = "/health"
+#backend configration
+backend_instance_type      = "t3.micro"
+backend_docker_image       = "<account-id>.dkr.ecr.us-east-1.amazonaws.com/<backend-repository-name>:<tag>"
+backend_max_size           = 4
+backend_min_size           = 2
+backend_desired_capacity   = 2
+backend_high_cpu_threshold = 80
+backend_target_cpu_value   = 70
+backend_alarm_actions      = []
+#frontend configration
+frontend_instance_type      = "t3.micro"
+frontend_docker_image       = "<account-id>.dkr.ecr.us-east-1.amazonaws.com/<frontend-repository-name>:<tag>"
+frontend_max_size           = 4
+frontend_min_size           = 2
+frontend_desired_capacity   = 2
+frontend_high_cpu_threshold = 80
+frontend_target_cpu_value   = 70
